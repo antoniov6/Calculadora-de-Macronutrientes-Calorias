@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Macronutrientes e Calorias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Calculadora de Macronutrientes</h1>
+    <div class="meal">
+      <h2>Refeição 1</h2>
+      <label for="carb1">Carboidrato (g):</label>
+      <input type="number" id="carb1" />
+      <label for="prot1">Proteína (g):</label>
+      <input type="number" id="prot1" />
+      <label for="fat1">Gordura (g):</label>
+      <input type="number" id="fat1" />
+      <label for="cal1">Calorias (kcal):</label>
+      <input type="number" id="cal1" />
+    </div>
+    <div class="meal">
+      <h2>Refeição 2</h2>
+      <label for="carb2">Carboidrato (g):</label>
+      <input type="number" id="carb2" />
+      <label for="prot2">Proteína (g):</label>
+      <input type="number" id="prot2" />
+      <label for="fat2">Gordura (g):</label>
+      <input type="number" id="fat2" />
+      <label for="cal2">Calorias (kcal):</label>
+      <input type="number" id="cal2" />
+    </div>
+    <div class="meal">
+      <h2>Refeição 3</h2>
+      <label for="carb3">Carboidrato (g):</label>
+      <input type="number" id="carb3" />
+      <label for="prot3">Proteína (g):</label>
+      <input type="number" id="prot3" />
+      <label for="fat3">Gordura (g):</label>
+      <input type="number" id="fat3" />
+      <label for="cal3">Calorias (kcal):</label>
+      <input type="number" id="cal3" />
+    </div>
+    <button onclick="calcular()">Calcular</button>
+    <div class="result">
+      <h2>Resultado</h2>
+      <p>Total Carboidrato (g): <span id="totalCarb"></span></p>
+      <p>Total Proteína (g): <span id="totalProt"></span></p>
+      <p>Total Gordura (g): <span id="totalFat"></span></p>
+      <p>Total Calorias (kcal): <span id="totalCal"></span></p>
+    </div>
+    <div class="saved-data">
+      <h2>Dados Salvos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Carboidrato (g)</th>
+            <th>Proteína (g)</th>
+            <th>Gordura (g)</th>
+            <th>Calorias(kcal)</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
