@@ -36,6 +36,19 @@ function calcular() {
   localStorage.setItem("dados", JSON.stringify(dadosExistentes));
 
   exibirDadosSalvos();
+
+  carb1.textContent = "";
+  prot1.textContent = "";
+  fat1.textContent = "";
+  cal1.textContent = "";
+  carb2.textContent = "";
+  prot2.textContent = "";
+  fat2.textContent = "";
+  cal2.textContent = "";
+  carb3.textContent = "";
+  prot3.textContent = "";
+  fat3.textContent = "";
+  cal3.textContent = "";
 }
 
 function exibirDadosSalvos() {
@@ -48,21 +61,24 @@ function exibirDadosSalvos() {
     let dados = dadosExistentes[data];
 
     let row = document.createElement("tr");
+
     row.innerHTML = `
-        <td>${data}</td>
-        <td>${
+    
+    <td id="dados-salvos">${formatarData(data)}</td>
+        <td id="dados-salvos">${
           dados.refeicao1.carb + dados.refeicao2.carb + dados.refeicao3.carb
         }</td>
-        <td>${
+        <td id="dados-salvos">${
           dados.refeicao1.prot + dados.refeicao2.prot + dados.refeicao3.prot
         }</td>
-        <td>${
+        <td id="dados-salvos">${
           dados.refeicao1.fat + dados.refeicao2.fat + dados.refeicao3.fat
         }</td>
-        <td>${
+        <td id="dados-salvos">${
           dados.refeicao1.cal + dados.refeicao2.cal + dados.refeicao3.cal
         }</td>
         <td><button onclick="excluirLinha('${data}')">Excluir</button></td>
+        <td><button onclick="editarRefeicao('${data}')">Editar</button><td>
         `;
     tableBody.appendChild(row);
   }
@@ -78,3 +94,57 @@ function excluirLinha(data) {
 }
 
 exibirDadosSalvos();
+
+function editarRefeicao(data) {
+  let dadosExistentes = JSON.parse(localStorage.getItem("dados")) || {};
+  let dadosRefeicao = dadosExistentes[data];
+
+  document.getElementById("carb1").value = dadosRefeicao.refeicao1.carb;
+  document.getElementById("prot1").value = dadosRefeicao.refeicao1.prot;
+  document.getElementById("fat1").value = dadosRefeicao.refeicao1.fat;
+  document.getElementById("cal1").value = dadosRefeicao.refeicao1.cal;
+
+  document.getElementById("carb2").value = dadosRefeicao.refeicao2.carb;
+  document.getElementById("prot2").value = dadosRefeicao.refeicao2.prot;
+  document.getElementById("fat2").value = dadosRefeicao.refeicao2.fat;
+  document.getElementById("cal2").value = dadosRefeicao.refeicao2.cal;
+
+  document.getElementById("carb3").value = dadosRefeicao.refeicao3.carb;
+  document.getElementById("prot3").value = dadosRefeicao.refeicao3.prot;
+  document.getElementById("fat3").value = dadosRefeicao.refeicao3.fat;
+  document.getElementById("cal3").value = dadosRefeicao.refeicao3.cal;
+}
+
+function salvarAlteracoes() {
+  let data = new Date().toISOString().split("T")[0];
+  let dadosRefeicoes = {
+    refeicao1: { carb: carb1, prot: prot1, fat: fat1, cal: cal1 },
+    refeicao2: { carb: carb2, prot: prot2, fat: fat2, cal: cal2 },
+    refeicao3: { carb: carb3, prot: prot3, fat: fat3, cal: cal3 },
+  };
+
+  let dadosExistentes = JSON.parse(localStorage.getItem("dados")) || {};
+  dadosExistentes = { ...dadosExistentes, ...dadosRefeicoes };
+
+  localStorage.setItem("dados", JSON.stringify(dadosExistentes));
+
+  exibirDadosSalvos();
+
+  carb1.textContent = "";
+  prot1.textContent = "";
+  fat1.textContent = "";
+  cal1.textContent = "";
+  carb2.textContent = "";
+  prot2.textContent = "";
+  fat2.textContent = "";
+  cal2.textContent = "";
+  carb3.textContent = "";
+  prot3.textContent = "";
+  fat3.textContent = "";
+  cal3.textContent = "";
+}
+
+function formatarData(data) {
+  const options = { day: "numeric", month: "numeric", year: "numeric" };
+  return new Date(data).toLocaleDateString(undefined, options);
+}

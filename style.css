@@ -76,3 +76,11 @@ th,
 td {
   font-size: 14px;
 }
+
+.save-edit {
+  margin-top: 10px;
+}
+
+#dados-salvos {
+  font-size: 20px;
+}
