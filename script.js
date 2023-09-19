@@ -35,20 +35,22 @@ function calcular() {
 
   localStorage.setItem("dados", JSON.stringify(dadosExistentes));
 
-  exibirDadosSalvos();
+  document.getElementById("carb1").value = "";
+  document.getElementById("prot1").value = "";
+  document.getElementById("fat1").value = "";
+  document.getElementById("cal1").value = "";
 
-  carb1.textContent = "";
-  prot1.textContent = "";
-  fat1.textContent = "";
-  cal1.textContent = "";
-  carb2.textContent = "";
-  prot2.textContent = "";
-  fat2.textContent = "";
-  cal2.textContent = "";
-  carb3.textContent = "";
-  prot3.textContent = "";
-  fat3.textContent = "";
-  cal3.textContent = "";
+  document.getElementById("carb2").value = "";
+  document.getElementById("prot2").value = "";
+  document.getElementById("fat2").value = "";
+  document.getElementById("cal2").value = "";
+
+  document.getElementById("carb3").value = "";
+  document.getElementById("prot3").value = "";
+  document.getElementById("fat3").value = "";
+  document.getElementById("cal3").value = "";
+
+  exibirDadosSalvos();
 }
 
 function exibirDadosSalvos() {
@@ -63,23 +65,31 @@ function exibirDadosSalvos() {
     let row = document.createElement("tr");
 
     row.innerHTML = `
-    
-    <td id="dados-salvos">${formatarData(data)}</td>
-        <td id="dados-salvos">${
-          dados.refeicao1.carb + dados.refeicao2.carb + dados.refeicao3.carb
-        }</td>
-        <td id="dados-salvos">${
-          dados.refeicao1.prot + dados.refeicao2.prot + dados.refeicao3.prot
-        }</td>
-        <td id="dados-salvos">${
-          dados.refeicao1.fat + dados.refeicao2.fat + dados.refeicao3.fat
-        }</td>
-        <td id="dados-salvos">${
-          dados.refeicao1.cal + dados.refeicao2.cal + dados.refeicao3.cal
-        }</td>
-        <td><button onclick="excluirLinha('${data}')">Excluir</button></td>
-        <td><button onclick="editarRefeicao('${data}')">Editar</button><td>
-        `;
+  <td id="dados-salvos">${formatarData(data)}</td>
+  <td id="dados-salvos">${
+    (dados.refeicao1 ? dados.refeicao1.carb : 0) +
+    (dados.refeicao2 ? dados.refeicao2.carb : 0) +
+    (dados.refeicao3 ? dados.refeicao3.carb : 0)
+  }</td>
+  <td id="dados-salvos">${
+    (dados.refeicao1 ? dados.refeicao1.prot : 0) +
+    (dados.refeicao2 ? dados.refeicao2.prot : 0) +
+    (dados.refeicao3 ? dados.refeicao3.prot : 0)
+  }</td>
+  <td id="dados-salvos">${
+    (dados.refeicao1 ? dados.refeicao1.fat : 0) +
+    (dados.refeicao2 ? dados.refeicao2.fat : 0) +
+    (dados.refeicao3 ? dados.refeicao3.fat : 0)
+  }</td>
+  <td id="dados-salvos">${
+    (dados.refeicao1 ? dados.refeicao1.cal : 0) +
+    (dados.refeicao2 ? dados.refeicao2.cal : 0) +
+    (dados.refeicao3 ? dados.refeicao3.cal : 0)
+  }</td>
+  <td><button onclick="excluirLinha('${data}')">Excluir</button></td>
+  <td><button onclick="editarRefeicao('${data}')">Editar</button><td>
+`;
+
     tableBody.appendChild(row);
   }
 }
@@ -129,19 +139,6 @@ function salvarAlteracoes() {
   localStorage.setItem("dados", JSON.stringify(dadosExistentes));
 
   exibirDadosSalvos();
-
-  carb1.textContent = "";
-  prot1.textContent = "";
-  fat1.textContent = "";
-  cal1.textContent = "";
-  carb2.textContent = "";
-  prot2.textContent = "";
-  fat2.textContent = "";
-  cal2.textContent = "";
-  carb3.textContent = "";
-  prot3.textContent = "";
-  fat3.textContent = "";
-  cal3.textContent = "";
 }
 
 function formatarData(data) {
