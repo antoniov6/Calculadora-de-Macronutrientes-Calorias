@@ -80,32 +80,43 @@ function exibirDadosSalvos() {
     let row = document.createElement("tr");
 
     row.innerHTML = `
-      <td id="dados-salvos">${formatarData(data)}</td>
-      <td id="dados-salvos">${
-        (dados.refeicao1 ? dados.refeicao1.carb : 0) +
-        (dados.refeicao2 ? dados.refeicao2.carb : 0) +
-        (dados.refeicao3 ? dados.refeicao3.carb : 0)
-      }</td>
-      <td id="dados-salvos">${
-        (dados.refeicao1 ? dados.refeicao1.prot : 0) +
-        (dados.refeicao2 ? dados.refeicao2.prot : 0) +
-        (dados.refeicao3 ? dados.refeicao3.prot : 0)
-      }</td>
-      <td id="dados-salvos">${
-        (dados.refeicao1 ? dados.refeicao1.fat : 0) +
-        (dados.refeicao2 ? dados.refeicao2.fat : 0) +
-        (dados.refeicao3 ? dados.refeicao3.fat : 0)
-      }</td>
-      <td id="dados-salvos">${
-        (dados.refeicao1 ? dados.refeicao1.cal : 0) +
-        (dados.refeicao2 ? dados.refeicao2.cal : 0) +
-        (dados.refeicao3 ? dados.refeicao3.cal : 0)
-      }</td>
-      <td><button onclick="excluirLinha('${data}')">Excluir</button></td>
-      <td><button onclick="editarRefeicao('${data}')">Editar</button><td>
-    `;
+    <td id="dados-salvos">${formatarData(data)}</td>
+    <td id="dados-salvos">${
+      (dados.refeicao1 ? dados.refeicao1.carb : 0) +
+      (dados.refeicao2 ? dados.refeicao2.carb : 0) +
+      (dados.refeicao3 ? dados.refeicao3.carb : 0)
+    }</td>
+    <td id="dados-salvos">${
+      (dados.refeicao1 ? dados.refeicao1.prot : 0) +
+      (dados.refeicao2 ? dados.refeicao2.prot : 0) +
+      (dados.refeicao3 ? dados.refeicao3.prot : 0)
+    }</td>
+    <td id="dados-salvos">${
+      (dados.refeicao1 ? dados.refeicao1.fat : 0) +
+      (dados.refeicao2 ? dados.refeicao2.fat : 0) +
+      (dados.refeicao3 ? dados.refeicao3.fat : 0)
+    }</td>
+    <td id="dados-salvos" class="totalCal">${
+      (dados.refeicao1 ? dados.refeicao1.cal : 0) +
+      (dados.refeicao2 ? dados.refeicao2.cal : 0) +
+      (dados.refeicao3 ? dados.refeicao3.cal : 0)
+    }</td>
+    <td><button onclick="excluirLinha('${data}')">Excluir</button></td>
+    <td><button onclick="editarRefeicao('${data}')">Editar</button><td>
+  `;
 
     tableBody.appendChild(row);
+
+    let totalCalCell = row.querySelector(".totalCal");
+    let totalCalValue = parseFloat(totalCalCell.textContent);
+
+    if (totalCalValue > 1500) {
+      totalCalCell.style.color = "red";
+    } else if (totalCalValue === 0) {
+      totalCalCell.textContent = "Dia do lixo";
+    } else {
+      totalCalCell.style.color = "green";
+    }
   }
 }
 
@@ -122,8 +133,7 @@ exibirDadosSalvos();
 
 function editarRefeicao(data) {
   let dadosExistentes = JSON.parse(localStorage.getItem("dados")) || {};
-  let dataFormatada = data.replace(/-/g, "/");
-  let dadosRefeicao = dadosExistentes[dataFormatada];
+  let dadosRefeicao = dadosExistentes[data];
 
   if (!dadosRefeicao) {
     alert("Não foi possível encontrar dados para esta data.");
@@ -155,7 +165,7 @@ function editarRefeicao(data) {
 }
 
 function salvarAlteracoes() {
-  let data = new Date().toISOString().split("T")[0];
+  let data = document.getElementById("data-editar").value;
   let dadosRefeicoes = {
     refeicao1: {
       carb: parseFloat(document.getElementById("carb1").value) || 0,
@@ -178,6 +188,7 @@ function salvarAlteracoes() {
   };
 
   let dadosExistentes = JSON.parse(localStorage.getItem("dados")) || {};
+  dadosExistentes[data] = dadosRefeicoes;
 
   if (!dadosExistentes[data]) {
     dadosExistentes[data] = {};
@@ -198,11 +209,12 @@ function formatarData(data) {
 }
 
 function obterDataFormatada() {
-  const hoje = new Date();
-  const ano = hoje.getFullYear();
-  const mes = String(hoje.getMonth() + 1).padStart(2, "0");
-  const dia = String(hoje.getDate()).padStart(2, "0");
-  return `${ano}-${mes}-${dia}`;
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, "0");
+  let mm = String(today.getMonth() + 1).padStart(2, "0"); // January is 0!
+  let yyyy = today.getFullYear();
+
+  return yyyy + "-" + mm + "-" + dd;
 }
 
 let data = obterDataFormatada();

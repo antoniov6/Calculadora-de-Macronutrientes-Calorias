@@ -64,13 +64,15 @@
             <th>Carb (g)</th>
             <th>Prot (g)</th>
             <th>Fat (g)</th>
-            <th>Cal</th>
+            <th id="totalCalTabela">Cal</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody id="table-body"></tbody>
       </table>
+      <label for="data-editar">Data para editar:</label>
+      <input type="date" id="data-editar" name="data-editar" />
       <button onclick="salvarAlteracoes()" class="save-edit">
         Salvar Alterações
       </button>
