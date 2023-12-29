@@ -110,7 +110,7 @@ function exibirDadosSalvos() {
     let totalCalCell = row.querySelector(".totalCal");
     let totalCalValue = parseFloat(totalCalCell.textContent);
 
-    if (totalCalValue > 1500) {
+    if (totalCalValue > 1750) {
       totalCalCell.style.color = "red";
     } else if (totalCalValue === 0) {
       totalCalCell.textContent = "Dia do lixo";
